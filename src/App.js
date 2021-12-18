@@ -59,7 +59,7 @@ function App() {
                     <td>{obj.deadline}</td>
                     <td>{obj.createdAt}</td>
                     <td>
-                      <button className="border border-black rounded-lg">
+                      <button className="border border-black rounded-lg py-1 px-2">
                         수정
                       </button>
                     </td>
@@ -69,6 +69,18 @@ function App() {
             }
           </tbody>
         </table>
+        <div>
+          <input type="text" placeholder="이름" className="border border-black m-2" />
+          <input type="text" placeholder="할일" className="border border-black m-2" />
+          <input type="text" placeholder="기한 ex) yyyy-mm-dd" className="border border-black m-2" />
+          <button className="border border-black rounded-lg py-1 px-2"
+              onClick={(event) => {
+                // TODO: todolist에 넣고, 그것이 table의 tr로 작성까지 되도록 하고 싶다~
+              }}
+          >
+            추가
+          </button>
+        </div>
       </div>
 
     </div>
