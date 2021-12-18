@@ -47,25 +47,7 @@ function App() {
           </thead>
           <tbody className="divide-y divide-gray-500">
             {
-              todolist.map((obj, index) => {
-                return (
-                  <tr>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
-                    <td>{index + 1}</td>
-                    <td>{obj.name}</td>
-                    <td>{obj.task}</td>
-                    <td>{obj.deadline}</td>
-                    <td>{obj.createdAt}</td>
-                    <td>
-                      <button className="border border-black rounded-lg py-1 px-2">
-                        수정
-                      </button>
-                    </td>
-                  </tr>
-                )
-              })
+              // TODO
             }
           </tbody>
         </table>
@@ -74,21 +56,7 @@ function App() {
           <input id="task" type="text" placeholder="할일" className="border border-black m-2" />
           <input id="deadline" type="text" placeholder="기한 ex) yyyy-mm-dd" className="border border-black m-2" />
           <button className="border border-black rounded-lg py-1 px-2"
-              onClick={(event) => {
-                // 1: 사본(배열) 생성
-                let newArray = [ ...todolist ]  // 배열 복사(spread: 잼 바르듯이 펴 바르는 거.)
-
-                // 2: 배열에 객체 넣기
-                newArray.push({
-                  name: document.querySelector('#name').value,
-                  task: document.querySelector('#task').value,
-                  deadline: document.querySelector('#deadline').value,
-                  createdAt: new Date().toISOString().substring(0, 10),
-                })
-
-                // 3: 리렌더링(까지 해 주는 대입)
-                setTodolist(newArray)
-              }}
+              onClick={ }
           >
             추가
           </button>
