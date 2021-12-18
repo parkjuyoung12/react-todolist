@@ -74,11 +74,17 @@ function App() {
           <button className="border border-black rounded-lg py-1 px-2"
             onClick={(event) => {
               // TODO 추가버튼을 눌렀을때 이름, 할일, 기한, 생성일 todolist.push() 전송
-              // 랜더링
+              // 렌더링
+              let arr = [ ...todolist ] // 사본 생성
 
-              todolist.push()
+              arr.push({
+                name: document.querySelector('#name').value,
+                task: document.querySelector('#task').value,
+                deadline: document.querySelector('#deadline').value,
+                createdAt : new Date().toISOString().substring(0, 10)
+              })
               
-
+              setTodolist(arr)
             }}          
           >
             추가
