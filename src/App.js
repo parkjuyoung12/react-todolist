@@ -1,11 +1,36 @@
+import { useState } from 'react';
 import './App.css';
 
-function App() {
+function App() {  
+
+  // [] 배열
+  // {} 객체
+  const [ todolist, setTodolist ] = useState([
+    {
+      name: '홍길동',
+      task: '잠자기',
+      deadline: '2021-12-18',
+      createdAt: '2021-12-18',
+    },
+    {
+      name: '박주영',
+      task: '공부',
+      deadline: '2021-12-18',
+      createdAt: '2021-12-18',
+    },
+    {
+      name: '강민성',
+      task: '강의',
+      deadline: '2021-12-18',
+      createdAt: '2021-12-18',
+    }
+  ])
+
   return (
-    <div className="App">
+  <div className="App">
       <div className="flex flex-col justify-start items-center">
         <p>Tailwind Test</p>
-        <p>Tailwind Test</p>
+
       </div>
       <div className="flex flex-col items-center ">
         <table className="w-5/6 border-t-2 border-b-2 border-black " >
@@ -20,20 +45,28 @@ function App() {
               <th>수정</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>
-                <input type="checkbox" />
-              </td>
-              <td>test번호</td>
-              <td>홍길동</td>
-              <td>잠자기</td>
-              <td>오늘</td>
-              <td>오늘</td>
-              <td>
-                <button>수정</button>
-              </td>
-            </tr>
+          <tbody className="divide-y divide-gray-500">
+            {
+              todolist.map((obj, index) => {
+                return (
+                  <tr>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
+                    <td>{index + 1}</td>
+                    <td>{obj.name}</td>
+                    <td>{obj.task}</td>
+                    <td>{obj.deadline}</td>
+                    <td>{obj.createdAt}</td>
+                    <td>
+                      <button className="border border-black rounded-lg">
+                        수정
+                      </button>
+                    </td>
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
       </div>
