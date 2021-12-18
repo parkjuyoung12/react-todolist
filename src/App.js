@@ -47,7 +47,23 @@ function App() {
           </thead>
           <tbody className="divide-y divide-gray-500">
             {
-              // TODO
+              todolist.map((obj, index)=>{
+                return (
+                  <tr>
+                    <td>
+                      <input type="checkbox"/>
+                    </td>
+                    <td>{index + 1}</td>
+                    <td>{obj.name}</td>
+                    <td>{obj.task}</td>
+                    <td>{obj.deadline}</td>
+                    <td>{obj.createdAt}</td>
+                    <td>
+                      <button className="border border-black rounded-lg py-1 px-1">수정</button>
+                    </td>
+                  </tr>
+                )
+              })
             }
           </tbody>
         </table>
@@ -56,7 +72,14 @@ function App() {
           <input id="task" type="text" placeholder="할일" className="border border-black m-2" />
           <input id="deadline" type="text" placeholder="기한 ex) yyyy-mm-dd" className="border border-black m-2" />
           <button className="border border-black rounded-lg py-1 px-2"
-              onClick={ }
+            onClick={(event) => {
+              // TODO 추가버튼을 눌렀을때 이름, 할일, 기한, 생성일 todolist.push() 전송
+              // 랜더링
+
+              todolist.push()
+              
+
+            }}          
           >
             추가
           </button>
