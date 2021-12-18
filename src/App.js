@@ -70,12 +70,24 @@ function App() {
           </tbody>
         </table>
         <div>
-          <input type="text" placeholder="이름" className="border border-black m-2" />
-          <input type="text" placeholder="할일" className="border border-black m-2" />
-          <input type="text" placeholder="기한 ex) yyyy-mm-dd" className="border border-black m-2" />
+          <input id="name" type="text" placeholder="이름" className="border border-black m-2" />
+          <input id="task" type="text" placeholder="할일" className="border border-black m-2" />
+          <input id="deadline" type="text" placeholder="기한 ex) yyyy-mm-dd" className="border border-black m-2" />
           <button className="border border-black rounded-lg py-1 px-2"
               onClick={(event) => {
-                // TODO: todolist에 넣고, 그것이 table의 tr로 작성까지 되도록 하고 싶다~
+                // 1: 사본(배열) 생성
+                let newArray = [ ...todolist ]  // 배열 복사(spread: 잼 바르듯이 펴 바르는 거.)
+
+                // 2: 배열에 객체 넣기
+                newArray.push({
+                  name: document.querySelector('#name').value,
+                  task: document.querySelector('#task').value,
+                  deadline: document.querySelector('#deadline').value,
+                  createdAt: new Date().toISOString().substring(0, 10),
+                })
+
+                // 3: 리렌더링(까지 해 주는 대입)
+                setTodolist(newArray)
               }}
           >
             추가
