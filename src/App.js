@@ -5,26 +5,18 @@ function App() {
 
   // [] 배열
   // {} 객체
-  const [ todolist, setTodolist ] = useState([
-    {
-      name: '홍길동',
-      task: '잠자기',
-      deadline: '2021-12-18',
-      createdAt: '2021-12-18',
-    },
-    {
-      name: '박주영',
-      task: '공부',
-      deadline: '2021-12-18',
-      createdAt: '2021-12-18',
-    },
-    {
-      name: '강민성',
-      task: '강의',
-      deadline: '2021-12-18',
-      createdAt: '2021-12-18',
-    }
-  ])
+  const [ todolist, setTodolist ] = useState([])
+  // useState(...)라는 함수는
+  //    배열을 반환하는데
+  //      그 배열의 0번에는: 우리가 쓰려는 진짜 그 변수
+  //      그 배열의 1번에는: 그 변수를 쫓아다니는 스토커 Setter
+  //  
+  //    그래서 그 1번에 있는 setter 함수를 써서 0번에 있는 그 변수를 바꾸면
+  //    : 스토커(setTodolist)가 HTML을 다 들쑤시면서 todolist가 쓰인 모든 곳을 리렌더링
+  //
+  //    빈 배열은?
+  //      useState(여기에 초기화 값) 적는 건데
+  //      우리는 첨엔 그냥 빈 배열을 만들 거니까 그냥 빈 배열 넣음.
 
   return (
   <div className="App">
@@ -47,17 +39,27 @@ function App() {
           </thead>
           <tbody className="divide-y divide-gray-500">
             {
+              // .map(...)은 forEach 같은 역할
+              // .map( ()=>{} ) 함수를 넣는 것
+              /* 
+                .map((obj, index) => {
+                  return ( <></> )
+                })
+              */
+              //  obj: 배열에 있던 원소 하나하나(우리는 객체의 배열이니까, 하나하나는 객체.)
+              //  index: 인덱스
+
               todolist.map((obj, index)=>{
                 return (
                   <tr>
                     <td>
                       <input type="checkbox"/>
                     </td>
-                    <td>{index + 1}</td>
-                    <td>{obj.name}</td>
-                    <td>{obj.task}</td>
-                    <td>{obj.deadline}</td>
-                    <td>{obj.createdAt}</td>
+                    <td>{ index + 1 }</td>
+                    <td>{ obj.name }</td>
+                    <td>{ obj.task }</td>
+                    <td>{ obj.deadline }</td>
+                    <td>{ obj.createdAt }</td>
                     <td>
                       <button className="border border-black rounded-lg py-1 px-1">수정</button>
                     </td>
@@ -82,10 +84,10 @@ function App() {
                 task: document.querySelector('#task').value,
                 deadline: document.querySelector('#deadline').value,
                 createdAt : new Date().toISOString().substring(0, 10)
-              })
+              })  // .push({객체})
               
-              setTodolist(arr)
-            }}          
+              setTodolist(arr)  // todolist에 넣고, 화면에 뿌려줌(HTML에)
+            }}
           >
             추가
           </button>
