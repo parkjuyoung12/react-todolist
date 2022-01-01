@@ -11,11 +11,11 @@ function App() {
       task: 'task',
       deadline: '2022-12-25',
       createdAt: new Date().toISOString().substring(0, 10),
-
+      states : {
+        willRemove: false,
+        canEdit: false,
+      }
     }
-  ])
-  const [ checkedList, setCheckedList ] = useState([
-    false,
   ])
 
   // useState(...)라는 함수는
@@ -69,10 +69,10 @@ function App() {
                 return (
                   <tr>
                     <td>
-                      <input type="checkbox" checked={ checkedList[index] } onClick={(event) => {
-                        let newCanEdit = [ ...checkedList ]
-                        newCanEdit[index] = !newCanEdit[index]
-                        setCheckedList(newCanEdit) // 렌더링
+                      <input type="checkbox" checked={ obj.states.willRemove } onClick={(event) => {
+                        let newArray = [ ...todolist ]
+                        newArray[index].states.willRemove = !obj.states.willRemove
+                        setTodolist( newArray ) // 렌더링
                       }} />
                     </td>
                     <td>{ index + 1 }</td>
@@ -98,19 +98,19 @@ function App() {
               // TODO 추가버튼을 눌렀을때 이름, 할일, 기한, 생성일 todolist.push() 전송
               // 렌더링
               let arr = [ ...todolist ] // 사본 생성
-              let newCheckedList = [ ...checkedList ]
 
               arr.push({
                 name: document.querySelector('#name').value,
                 task: document.querySelector('#task').value,
                 deadline: document.querySelector('#deadline').value,
-                createdAt : new Date().toISOString().substring(0, 10)
+                createdAt : new Date().toISOString().substring(0, 10),
+                states: {
+                  willRemove: false,
+                  canEdit: false,
+                },
               })  // .push({객체})
-
-              newCheckedList.push(false)
               
               setTodolist( arr )  // todolist에 넣고, 화면에 뿌려줌(HTML에)
-              setCheckedList( newCheckedList )
             }}
           >
             추가
@@ -120,20 +120,17 @@ function App() {
             onClick={(event) => {
               // TODO 삭제 버튼을 눌렀을때 이름, 할일, 기한, 생성일 todolist.push() 전송
               // 렌더링
-              let arr = [] // 사본 생성
-              let newCheckedList = []
+              let arr = []
 
               // 체크박스 선택 안된 얘들 넣는 것
               todolist.map((ele, index) => {
-                // checkedList 이 false 인 얘들 의 name, task, deadline, createdAt 만 담기
-                if (!checkedList[index]) { // checkedList[index]가 false일 때
+                // willRemove가 false 인 얘들 의 name, task, deadline, createdAt 만 담기
+                if (!ele.states.willRemove) { // willRemove가 false일 때
                   arr.push(ele)
-                  newCheckedList.push( false )
                 }
               })
               
               setTodolist(arr)  // todolist에 넣고, 화면에 뿌려줌(HTML에)
-              setCheckedList(newCheckedList)
             }}
           >
             삭제
