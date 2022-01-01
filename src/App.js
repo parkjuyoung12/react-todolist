@@ -11,9 +11,10 @@ function App() {
       task: 'task',
       deadline: '2022-12-25',
       createdAt: new Date().toISOString().substring(0, 10),
+
     }
   ])
-  const [ canEdit, setCanEdit ] = useState([
+  const [ checkedList, setCheckedList ] = useState([
     false,
   ])
 
@@ -68,10 +69,10 @@ function App() {
                 return (
                   <tr>
                     <td>
-                      <input type="checkbox" checked={ canEdit[index] } onClick={(event) => {
-                        let newCanEdit = [ ...canEdit ]
+                      <input type="checkbox" checked={ checkedList[index] } onClick={(event) => {
+                        let newCanEdit = [ ...checkedList ]
                         newCanEdit[index] = !newCanEdit[index]
-                        setCanEdit(newCanEdit) // 렌더링
+                        setCheckedList(newCanEdit) // 렌더링
                       }} />
                     </td>
                     <td>{ index + 1 }</td>
@@ -97,7 +98,7 @@ function App() {
               // TODO 추가버튼을 눌렀을때 이름, 할일, 기한, 생성일 todolist.push() 전송
               // 렌더링
               let arr = [ ...todolist ] // 사본 생성
-              let newCanEdit = [ ...canEdit ]
+              let newCheckedList = [ ...checkedList ]
 
               arr.push({
                 name: document.querySelector('#name').value,
@@ -106,10 +107,10 @@ function App() {
                 createdAt : new Date().toISOString().substring(0, 10)
               })  // .push({객체})
 
-              newCanEdit.push(false)
+              newCheckedList.push(false)
               
               setTodolist( arr )  // todolist에 넣고, 화면에 뿌려줌(HTML에)
-              setCanEdit( newCanEdit )
+              setCheckedList( newCheckedList )
             }}
           >
             추가
@@ -120,19 +121,19 @@ function App() {
               // TODO 삭제 버튼을 눌렀을때 이름, 할일, 기한, 생성일 todolist.push() 전송
               // 렌더링
               let arr = [] // 사본 생성
-              let newCanEdit = []
+              let newCheckedList = []
 
               // 체크박스 선택 안된 얘들 넣는 것
               todolist.map((ele, index) => {
-                // canEdit 이 false 인 얘들 의 name, task, deadline, createdAt 만 담기
-                if (!canEdit[index]) { // canEdit[index]가 false일 때
+                // checkedList 이 false 인 얘들 의 name, task, deadline, createdAt 만 담기
+                if (!checkedList[index]) { // checkedList[index]가 false일 때
                   arr.push(ele)
-                  newCanEdit.push( false )
+                  newCheckedList.push( false )
                 }
               })
               
               setTodolist(arr)  // todolist에 넣고, 화면에 뿌려줌(HTML에)
-              setCanEdit(newCanEdit)
+              setCheckedList(newCheckedList)
             }}
           >
             삭제
