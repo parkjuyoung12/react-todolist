@@ -5,7 +5,18 @@ function App() {
 
   // [] 배열
   // {} 객체
-  const [ todolist, setTodolist ] = useState([])
+  const [ todolist, setTodolist ] = useState([
+    {
+      name: 'Sample',
+      task: 'task',
+      deadline: '2022-12-25',
+      createdAt: new Date().toISOString().substring(0, 10),
+    }
+  ])
+  const [ canEdit, setCanEdit ] = useState([
+    false,
+  ])
+
   // useState(...)라는 함수는
   //    배열을 반환하는데
   //      그 배열의 0번에는: 우리가 쓰려는 진짜 그 변수
@@ -21,8 +32,12 @@ function App() {
   return (
   <div className="App">
       <div className="flex flex-col justify-start items-center">
-        <p>Tailwind Test</p>
-
+        <div class="w-5/6 border-t-2 border-b-2 border-black">
+          <div>
+            <p>aaa</p>
+            <p>bbb</p>
+          </div>
+        </div>
       </div>
       <div className="flex flex-col items-center ">
         <table className="w-5/6 border-t-2 border-b-2 border-black " >
@@ -53,7 +68,11 @@ function App() {
                 return (
                   <tr>
                     <td>
-                      <input type="checkbox"/>
+                      <input type="checkbox" checked={ canEdit[index] } onClick={(event) => {
+                        let newCanEdit = [ ...canEdit ]
+                        newCanEdit[index] = !newCanEdit[index]
+                        setCanEdit(newCanEdit) // 렌더링
+                      }} />
                     </td>
                     <td>{ index + 1 }</td>
                     <td>{ obj.name }</td>
@@ -78,6 +97,7 @@ function App() {
               // TODO 추가버튼을 눌렀을때 이름, 할일, 기한, 생성일 todolist.push() 전송
               // 렌더링
               let arr = [ ...todolist ] // 사본 생성
+              let newCanEdit = [ ...canEdit ]
 
               arr.push({
                 name: document.querySelector('#name').value,
@@ -85,11 +105,37 @@ function App() {
                 deadline: document.querySelector('#deadline').value,
                 createdAt : new Date().toISOString().substring(0, 10)
               })  // .push({객체})
+
+              newCanEdit.push(false)
               
-              setTodolist(arr)  // todolist에 넣고, 화면에 뿌려줌(HTML에)
+              setTodolist( arr )  // todolist에 넣고, 화면에 뿌려줌(HTML에)
+              setCanEdit( newCanEdit )
             }}
           >
             추가
+          </button>
+
+          <button className="border border-black rounded-lg py-1 px-2 m-2"
+            onClick={(event) => {
+              // TODO 삭제 버튼을 눌렀을때 이름, 할일, 기한, 생성일 todolist.push() 전송
+              // 렌더링
+              let arr = [] // 사본 생성
+              let newCanEdit = []
+
+              // 체크박스 선택 안된 얘들 넣는 것
+              todolist.map((ele, index) => {
+                // canEdit 이 false 인 얘들 의 name, task, deadline, createdAt 만 담기
+                if (!canEdit[index]) { // canEdit[index]가 false일 때
+                  arr.push(ele)
+                  newCanEdit.push( false )
+                }
+              })
+              
+              setTodolist(arr)  // todolist에 넣고, 화면에 뿌려줌(HTML에)
+              setCanEdit(newCanEdit)
+            }}
+          >
+            삭제
           </button>
         </div>
       </div>
