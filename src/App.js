@@ -8,14 +8,34 @@ function App() {
   const [ todolist, setTodolist ] = useState([
     {
       name: 'Sample',
-      task: 'task',
+      task: 'task1',
       deadline: '2022-12-25',
       createdAt: new Date().toISOString().substring(0, 10),
       states : {
         willRemove: false,
         canEdit: false,
       }
-    }
+    },
+    {
+      name: 'Sample',
+      task: 'task2',
+      deadline: '2022-12-25',
+      createdAt: new Date().toISOString().substring(0, 10),
+      states : {
+        willRemove: false,
+        canEdit: false,
+      }
+    },
+    {
+      name: 'Sample',
+      task: 'task3',
+      deadline: '2022-12-25',
+      createdAt: new Date().toISOString().substring(0, 10),
+      states : {
+        willRemove: false,
+        canEdit: false,
+      }
+    },
   ])
 
   // useState(...)라는 함수는
@@ -34,10 +54,30 @@ function App() {
   <div className="App">
       <div className="flex flex-col justify-start items-center">
         <div class="w-5/6 border-t-2 border-b-2 border-black">
-          <div>
-            <p>aaa</p>
-            <p>bbb</p>
-          </div>
+          <table>
+            <tr>
+              <th>
+                {/* <label for="체크박스아이디"></label> --> JSX: <label htmlFor="체크박스 아이디"></label> */}
+                <button type="checkBox" id="allCheck" className='border border-black rounded' onClick={(event) => {
+                  let newArray = [ ...todolist ]
+
+                  // 배열.every(callback) :boolean  모든 원소가 그 조건에서 참일 때
+                  // 배열.some(callback) :boolean   어느 하나라도 그 조건에서 참일 때
+                  //  callback 자체가 return (조건식) 형태로 boolean 타입을 반환하도록 넣으면 됨.
+                  const isAllChecked = todolist.every((obj)=>{
+                    return obj.states.willRemove /* === true */
+                  })
+
+                  // 전체 체크 안 되어 있을 땐 개별 체크박스가 체크되고, 전체 체크 되어 있을 땐 체크를 풀어준다.
+                  newArray.forEach((obj, index) => {
+                    obj.states.willRemove = !isAllChecked
+                  })
+
+                  setTodolist(newArray)
+                }}>전체선택</button>
+              </th>
+            </tr>
+          </table>
         </div>
       </div>
       <div className="flex flex-col items-center ">
